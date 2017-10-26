@@ -11,6 +11,8 @@
 </head>
 <body>
 
+<h1>Shortlife</h1>
+
 @stack('scripts')
 </body>
 </html>
