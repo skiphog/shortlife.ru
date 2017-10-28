@@ -1,9 +1,17 @@
 
 // Fonts
-@import url("https://fonts.googleapis.com/css?family=Raleway:300,400,600");
+@import url("https://fonts.googleapis.com/css?family=Arimo");
 
 // Variables
 @import "variables";
 
 // Bootstrap
 @import "~bootstrap-sass/assets/stylesheets/bootstrap";
+
+//swal
+@import "~sweetalert2/src/sweetalert2";
+
+//papper
+@import "papper";
+
+
