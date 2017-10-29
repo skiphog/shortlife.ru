@@ -3589,14 +3589,14 @@ textarea.form-control {
 }
 
 .header {
-  background: url(/img/sex-all.png) repeat-x center;
+  background: #fffcf5 url(/img/sex-all.png) repeat-x center;
   background-size: cover;
   min-height: 570px;
   .motto {
     margin-top: 8%;
     text-align: center;
     padding: 50px;
-    background-color: #faebd7b5;
+    background-color: rgba(250, 235, 215, 0.85);
     z-index: 3;
   }
 }
@@ -3604,6 +3604,7 @@ textarea.form-control {
 .main {
   background-color: #fff;
 }
+
 .landing-section {
   padding: 100px 0;
 }
