@@ -41,7 +41,7 @@
     <div class="header">
         <div class="container">
             <div class="motto">
-                <h1 class="title-uppercase">Example page</h1>
+                <h2 class="title-uppercase">Супер пупер квест</h2>
                 <h3>Start designing your landing page here.</h3>
                 <br>
                 <a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ" class="btn"><i class="fa fa-play"></i>Watch video</a>
