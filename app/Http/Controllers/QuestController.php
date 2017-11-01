@@ -11,8 +11,10 @@ class QuestController extends Controller
         $this->middleware('quest');
     }
 
-    public function index()
+    public function index(Request $request)
     {
+        //dd($request->cookies);
+
         return view('layouts.app');
     }
 }

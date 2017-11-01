@@ -18,6 +18,7 @@ class CreateAttemptsTable extends Migration
             $table->unsignedInteger('member_id');
             $table->unsignedTinyInteger('question_id');
             $table->text('post');
+            $table->timestamp('created_at');
         });
     }
 
