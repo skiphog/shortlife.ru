@@ -26,7 +26,7 @@ class QuestionRequest extends FormRequest
     {
         return [
             'question_id' => 'required|integer|exists:questions,id',
-            'content'     => 'required'
+            'post'     => 'required'
         ];
     }
 }

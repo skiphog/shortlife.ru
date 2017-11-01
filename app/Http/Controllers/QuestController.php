@@ -27,9 +27,42 @@ class QuestController extends Controller
 
     public function post(QuestionRequest $request)
     {
-        // Проверка совпадения
+        $this->addAttempts($request);
 
+        $question = Question::find($request->input('question_id'));
 
-        return response()->json($request->post());
+        if ($question->answer !== $this->replace($request->input('post'))) {
+            return response()->json(['error' => 'Неверный ответ', 'code' => 422], 422);
+        }
+
+        return response()->json($question);
+    }
+
+    /**
+     * @todo Убрать в Entity
+     *
+     * @param QuestionRequest $request
+     *
+     * @throws \Illuminate\Database\Eloquent\ModelNotFoundException
+     */
+    private function addAttempts(QuestionRequest $request)
+    {
+        $member = Member::where('token', $request->cookie('token'))->firstOrFail();
+
+        $request->request->set('member_id', $member->id);
+
+        Attempt::create($request->all());
+    }
+
+    /**
+     * @todo Убрать в спомогательные методы
+     *
+     * @param $string
+     *
+     * @return string
+     */
+    private function replace($string): string
+    {
+        return mb_strtolower(preg_replace('#[^A-zА-я0-9]#u', '', $string));
     }
 }

@@ -22,4 +22,6 @@ class Attempt extends Model
         'question_id',
         'post'
     ];
+
+    public $timestamps = false;
 }

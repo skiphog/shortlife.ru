@@ -11,7 +11,7 @@
 <div class="form-group">
     <div class="row">
         <div class="col-md-6 col-md-offset-3">
-            <input type="text" name="content" placeholder="Введите ответ" class="form-control">
+            <input type="text" name="post" placeholder="Введите ответ" class="form-control">
         </div>
     </div>
 </div>
