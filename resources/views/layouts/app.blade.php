@@ -31,27 +31,7 @@
 <div class="wrapper">
     <div class="header">
         <div class="container">
-            <div class="motto">
-                <h3>Вопрос №1: Вид свинга</h3>
-                <p>Без обмена партнерами &mdash; Мягкий свинг</p>
-                <p>Совместный (классический) &mdash; Открытый свинг</p>
-                <p>В разных комнатах &mdash; Закрытый свинг</p>
-                <p>Обмен на длительное время &mdash; ...</p>
-                <br>
-                <div class="form-group">
-                    <div class="row">
-                        <div class="col-md-6 col-md-offset-3">
-                            <input type="text" placeholder="Введите ответ" class="form-control">
-                        </div>
-                    </div>
-
-                </div>
-
-                <div class="form-group">
-                    <button class="btn btn-fill btn-danger">Ответить</button>
-                </div>
-            </div>
-
+            @yield('content')
         </div>
     </div>
 
