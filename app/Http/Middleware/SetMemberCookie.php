@@ -21,8 +21,6 @@ class SetMemberCookie
         /** @var \Illuminate\Http\Response $response */
         $response = $next($request);
 
-        dd($request->cookies);
-
         if (!$request->hasCookie('member')) {
             $member = str_random(60);
 
