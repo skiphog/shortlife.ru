@@ -35,6 +35,7 @@ class QuestController extends Controller
          * 2. todo: Проверить результат и в случае неверного ответа отправить ошибку
          * 3. todo: Пометить, что ответ верный
          * 4. todo: Показать следующий вывод
+         * 5. todo: Все передалть НАХ!!!
          */
 
         $service->saveAttempt($request, $this->member->id);
