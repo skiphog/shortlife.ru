@@ -26,16 +26,20 @@
           dataType: 'json',
           data: quest.serialize(),
           beforeSend: function () {
-
+            send = false;
           },
           success: function (j) {
 
           },
           error: function () {
-            alert('Forbidden 403');
+            swal(
+              'Ответ неверный',
+              'Попробуйте еще раз...',
+              'error'
+            )
           },
           complete: function () {
-
+            send = true;
           }
         });
 

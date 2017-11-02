@@ -35,6 +35,8 @@ class QuestController extends Controller
             return response()->json(['error' => 'Неверный ответ', 'code' => 422], 422);
         }
 
+
+
         return response()->json($question);
     }
 
