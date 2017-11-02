@@ -6,7 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <meta name="description" content="@yield('description','swing-quest')">
     <link rel="shortcut icon" href="/img/favicon.png">
-    <link href="/css/app.css" rel="stylesheet" />
+    <link href="/css/app.css" rel="stylesheet">
     @yield('css')
     <title>@yield('title', 'Свинг-квест')</title>
 </head>
