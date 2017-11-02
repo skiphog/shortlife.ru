@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Member;
 use App\Question;
 use Illuminate\Http\Request;
-use App\Service\AttemptService;
+use App\Services\AttemptService;
 use App\Http\Requests\QuestionRequest;
 
 class QuestController extends Controller
