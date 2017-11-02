@@ -3,66 +3,54 @@
 namespace App\Http\Controllers;
 
 use App\Member;
-use App\Attempt;
 use App\Question;
 use Illuminate\Http\Request;
+use App\Services\AttemptService;
 use App\Http\Requests\QuestionRequest;
 
 class QuestController extends Controller
 {
-    public function __construct()
+    /**
+     * @var Member
+     */
+    protected $member;
+
+    public function __construct(Request $request)
     {
         $this->middleware('quest');
+        $this->member = Member::where('token', $request->cookie('token'))->first();
     }
 
-    public function index(Request $request)
+    public function index()
     {
-        $quest_id = Member::where('token', $request->cookie('token'))
-            ->value('question_id') ?: 1;
+        $quest = Question::findOrFail($this->member->question_id ?? 1);
 
-        return view('quest.index', [
-            'quest' => Question::findOrFail($quest_id)
-        ]);
+        return view('quest.index', compact('quest'));
     }
 
-    public function post(QuestionRequest $request)
+    public function post(QuestionRequest $request, AttemptService $service)
     {
-        $this->addAttempts($request);
+        /**
+         * 1. Добавить запись об ответе [X]
+         * 2. todo: Проверить результат и в случае неверного ответа отправить ошибку
+         * 3. todo: Пометить, что ответ верный
+         * 4. todo: Показать следующий вывод
+         */
+
+        $service->saveAttempt($request, $this->member->id);
 
         $question = Question::find($request->input('question_id'));
 
-        if ($question->answer !== $this->replace($request->input('post'))) {
+        //todo: привезти к дному знаменателю
+        if ($question->answer !== replaceSymbols($request->input('post'))) {
             return response()->json(['error' => 'Неверный ответ', 'code' => 422], 422);
         }
 
+
+
+        // Проверить есть ли еще вопросы, если нет, то показать форму для получения логина
+
+
         return response()->json($question);
-    }
-
-    /**
-     * @todo Убрать в Entity
-     *
-     * @param QuestionRequest $request
-     *
-     * @throws \Illuminate\Database\Eloquent\ModelNotFoundException
-     */
-    private function addAttempts(QuestionRequest $request)
-    {
-        $member = Member::where('token', $request->cookie('token'))->firstOrFail();
-
-        $request->request->set('member_id', $member->id);
-
-        Attempt::create($request->all());
-    }
-
-    /**
-     * @todo Убрать в спомогательные методы
-     *
-     * @param $string
-     *
-     * @return string
-     */
-    private function replace($string): string
-    {
-        return mb_strtolower(preg_replace('#[^A-zА-я0-9]#u', '', $string));
     }
 }

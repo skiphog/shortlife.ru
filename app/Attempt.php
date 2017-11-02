@@ -24,4 +24,8 @@ class Attempt extends Model
     ];
 
     public $timestamps = false;
+
+    protected $dates = [
+        'created_at',
+    ];
 }
