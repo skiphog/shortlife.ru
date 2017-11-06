@@ -16,9 +16,11 @@ class CreateAttemptsTable extends Migration
         Schema::create('attempts', function (Blueprint $table) {
             $table->increments('id');
             $table->unsignedInteger('member_id');
-            $table->unsignedTinyInteger('question_id');
+            $table->unsignedInteger('question_id');
             $table->text('post');
+            $table->boolean('answer')->default(false);
             $table->timestamp('created_at')->useCurrent();
+            $table->index(['member_id', 'answer']);
         });
     }
 

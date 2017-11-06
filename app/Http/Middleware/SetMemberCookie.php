@@ -4,7 +4,6 @@ namespace App\Http\Middleware;
 
 use Closure;
 use App\Member;
-use Symfony\Component\HttpFoundation\Cookie;
 
 class SetMemberCookie
 {
@@ -18,51 +17,39 @@ class SetMemberCookie
      */
     public function handle($request, Closure $next)
     {
-        if ($request->hasCookie('token') && $this->verifyToken($request->cookie('token'))) {
-            return $next($request);
+        if (!$this->verifyToken($request)) {
+            return $this->redirectWithToken();
         }
 
-        return $this->setToken($next($request));
+        return $next($request);
     }
 
     /**
-     * Set token to the response cookies.
+     * Set cookie and redirect
      *
-     * @param  \Symfony\Component\HttpFoundation\Response $response
-     *
-     * @return \Symfony\Component\HttpFoundation\Response
+     * @return mixed
      */
-    protected function setToken($response)
+    protected function redirectWithToken()
     {
         $member = Member::create([
             'token' => str_random(60),
         ]);
 
-        $config = config('session');
-
-        $response->headers->setCookie(
-            new Cookie(
-                'token',
-                $member->token,
-                0x7FFFFFFF,
-                $config['path'],
-                $config['domain'],
-                $config['secure']
-            )
-        );
-
-        return $response;
+        return redirect()
+            ->route('/')
+            ->cookie('token', $member->token, 20160);
     }
 
+
     /**
-     * Check exists member
+     * Check correct token
      *
-     * @param mixed $token
+     * @param  \Illuminate\Http\Request $request
      *
      * @return bool
      */
-    protected function verifyToken($token): bool
+    protected function verifyToken($request): bool
     {
-        return (bool)Member::where('token', $token)->count();
+        return $request->hasCookie('token') && Member::where('token', $request->cookie('token'))->count();
     }
 }

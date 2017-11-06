@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Member;
+use App\Attempt;
 use App\Question;
 use Illuminate\Http\Request;
 use App\Services\AttemptService;
@@ -17,15 +18,22 @@ class QuestController extends Controller
 
     public function __construct(Request $request)
     {
-        $this->middleware('quest');
-        $this->member = Member::where('token', $request->cookie('token'))->first();
+        //$this->member = Member::where('token', $request->cookie('token'))->first();
     }
 
     public function index()
     {
+        //dd($this->member);
+
+        $attempts = Attempt::where(['member_id' => $this->member->id, 'answer' => true])
+            ->get()
+            ->pluck('question_id')
+            ->toArray();
 
 
-        $quest = Question::findOrFail($this->member->question_id ?? 1);
+        $quest = Question::whereNotIn('id', $attempts ?: [0])->orderBy('id')->firstOrFail();
+
+        //dd($question);
 
         return view('quest.index', compact('quest'));
     }
@@ -48,7 +56,6 @@ class QuestController extends Controller
         if ($question->answer !== replaceSymbols($request->input('post'))) {
             return response()->json(['error' => 'Неверный ответ', 'code' => 422], 422);
         }
-
 
 
         // Проверить есть ли еще вопросы, если нет, то показать форму для получения логина
