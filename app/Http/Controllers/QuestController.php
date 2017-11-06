@@ -23,6 +23,8 @@ class QuestController extends Controller
 
     public function index()
     {
+
+
         $quest = Question::findOrFail($this->member->question_id ?? 1);
 
         return view('quest.index', compact('quest'));
