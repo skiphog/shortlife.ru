@@ -12,10 +12,9 @@ class SetMemberCookie
      * Handle an incoming request.
      *
      * @param  \Illuminate\Http\Request $request
-     * @param  \Closure $next
+     * @param  \Closure                 $next
      *
      * @return mixed
-     * @throws \InvalidArgumentException
      */
     public function handle($request, Closure $next)
     {
@@ -32,13 +31,11 @@ class SetMemberCookie
      * @param  \Symfony\Component\HttpFoundation\Response $response
      *
      * @return \Symfony\Component\HttpFoundation\Response
-     * @throws \InvalidArgumentException
      */
     protected function setToken($response)
     {
         $member = Member::create([
-            'token'       => str_random(60),
-            'question_id' => 1
+            'token' => str_random(60),
         ]);
 
         $config = config('session');

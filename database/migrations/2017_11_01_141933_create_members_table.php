@@ -16,7 +16,6 @@ class CreateMembersTable extends Migration
         Schema::create('members', function (Blueprint $table) {
             $table->increments('id');
             $table->char('token', 60)->unique();
-            $table->unsignedTinyInteger('question_id')->default(1);
         });
     }
 
