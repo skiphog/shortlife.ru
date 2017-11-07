@@ -4,11 +4,11 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <meta name="description" content="@yield('description','swing-quest')">
+    <meta name="description" content="Свинг-квест">
     <link rel="shortcut icon" href="/img/favicon.png">
     <link href="/css/app.css" rel="stylesheet">
     @yield('css')
-    <title>@yield('title', 'Свинг-квест')</title>
+    <title>Свинг-квест</title>
 </head>
 <body>
 <nav class="navbar navbar-default">
@@ -29,6 +29,7 @@
 </nav>
 
 <div class="wrapper">
+
     <div class="header">
         <div class="container">
             @yield('content')
@@ -55,7 +56,6 @@
 
     </div>
 
-
 </div>
 
 <footer class="footer section-dark">
@@ -71,6 +71,7 @@
         </div>
     </div>
 </footer>
+
 <script src="/js/app.js"></script>
 @stack('scripts')
 </body>

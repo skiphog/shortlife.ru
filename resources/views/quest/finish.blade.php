@@ -1,9 +1,5 @@
 @extends('layouts.app')
 
-@section('title', 'Свинг-квест')
-
-@section('description', 'Свинг-квест')
-
 @section('content')
 
     <div class="motto">

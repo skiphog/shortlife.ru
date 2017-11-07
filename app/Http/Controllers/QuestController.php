@@ -11,6 +11,12 @@ use App\Http\Requests\QuestionRequest;
 
 class QuestController extends Controller
 {
+    public function __construct()
+    {
+        parent::__construct();
+        $this->middleware('quest.no');
+    }
+
     public function index(Request $request)
     {
         $member = Member::where('token', $request->cookie('token'))->firstOrFail();
@@ -20,10 +26,12 @@ class QuestController extends Controller
             ->pluck('question_id')
             ->toArray();
 
+
+
         $quest = Question::whereNotIn('id', $attempts ?: [0])->orderBy('id')->firstOrFail();
 
 
-        return view('quest.index', compact('quest'));
+        return view('quest.quest', compact('quest'));
     }
 
     public function post(QuestionRequest $request, AttemptService $service)
