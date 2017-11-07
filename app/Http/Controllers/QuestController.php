@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use DB;
 use App\Answer;
 use App\Member;
+use App\Attempt;
 use App\Question;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
-use App\Services\AttemptService;
 use App\Http\Requests\QuestionRequest;
 
 class QuestController extends Controller
@@ -17,6 +19,13 @@ class QuestController extends Controller
         $this->middleware('quest.no');
     }
 
+    /**
+     * Толстый и уродливый контроллер
+     *
+     * @param Request $request
+     *
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function index(Request $request)
     {
         $member = Member::where('token', $request->cookie('token'))->firstOrFail();
@@ -26,40 +35,54 @@ class QuestController extends Controller
             ->pluck('question_id')
             ->toArray();
 
-        dd($answers);
-
         $quest = Question::whereNotIn('id', $answers ?: [0])->orderBy('id')->firstOrFail();
 
         return view('quest.quest', compact('quest'));
     }
 
-    public function post(QuestionRequest $request, AttemptService $service)
+    /**
+     * Толстый и уродливый контроллер
+     *
+     * @param QuestionRequest $request
+     *
+     * @return $this|\Illuminate\Http\RedirectResponse
+     */
+    public function post(QuestionRequest $request)
     {
-        /**
-         * 1. Добавить запись об ответе [X]
-         * 2. todo: Проверить результат и в случае неверного ответа отправить ошибку
-         * 3. todo: Пометить, что ответ верный
-         * 4. todo: Показать следующий вывод
-         * 5. todo: Все передалть НАХ!!!
-         */
-
-
+        // Получаем пользователя
         $member = Member::where('token', $request->cookie('token'))->firstOrFail();
-        $service->saveAttempt($request, $member->id);
 
+        $request->request->set('member_id', $member->id);
 
-        $question = Question::find($request->input('question_id'));
+        //Записываем ответ в лог
+        Attempt::create($request->all());
 
-        // Если уже есть верный ответ -> редирект на гланую
-
-        if ($question->answer !== replaceSymbols($request->input('post'))) {
+        //Если уже есть парвильный ответ, то редирект обратно
+        if (Answer::where(['member_id' => $member->id, 'question_id' => $request->input('question_id')])->count()) {
             return redirect()->route('/');
         }
 
+        // Получаем вопрос
+        $question = Question::find($request->input('question_id'));
 
-        // Проверить есть ли еще вопросы, если нет, то показать форму для получения логина
+        // Если ответ неверный, то редирект с ошибкой
+        if ($question->answer !== replaceSymbols($request->input('post'))) {
+            return redirect()->route('/')
+                ->withInput()
+                ->withErrors(['Неправильный ответ']);
+        }
 
+        // Заносим сведение о том, что ответ верный
 
-        return response()->json($question);
+        DB::transaction(function () use ($request, $member) {
+            Answer::create($request->all());
+
+            if (Question::count() === Answer::where('member_id', $member->id)->count()) {
+                $member->finished_at = Carbon::now();
+                $member->save();
+            }
+        });
+
+        return redirect()->route('/')->with('flash', 'Это правильный ответ');
     }
 }

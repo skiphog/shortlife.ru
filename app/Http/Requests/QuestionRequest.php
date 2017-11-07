@@ -11,7 +11,7 @@ class QuestionRequest extends FormRequest
      *
      * @return bool
      */
-    public function authorize()
+    public function authorize(): bool
     {
         return true;
     }
@@ -32,9 +32,9 @@ class QuestionRequest extends FormRequest
     public function messages(): array
     {
         return [
-            'question_id.required' => 'Не существует такого вопроса',
-            'question_id.integer'  => 'Не существует такого вопроса',
-            'question_id.exist'    => 'Не существует такого вопроса',
+            'question_id.required' => 'Ай-ай-ай не делайте бяку',
+            'question_id.integer'  => 'А вот нет такого вопроса',
+            'question_id.exists'   => 'А вот нет такого вопроса',
             'post.required'        => 'Ответ не может быть пустым',
         ];
     }

@@ -24,3 +24,6 @@
     </div>
 
 @endsection
+
+@include('errors.list')
+@include('messages.flash')
