@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use DB;
 use App\Answer;
 use App\Member;
 use App\Attempt;
@@ -73,15 +72,13 @@ class QuestController extends Controller
         }
 
         // Заносим сведение о том, что ответ верный
+        Answer::create($request->all());
 
-        DB::transaction(function () use ($request, $member) {
-            Answer::create($request->all());
-
-            if (Question::count() === Answer::where('member_id', $member->id)->count()) {
-                $member->finished_at = Carbon::now();
-                $member->save();
-            }
-        });
+        if (Question::count() === Answer::where('member_id', $member->id)->count()) {
+            $member->finished_at = Carbon::now();
+            $member->save();
+            return redirect()->route('login')->with('flash', 'ПОБЕДА!!!');
+        }
 
         return redirect()->route('/')->with('flash', 'Это правильный ответ');
     }

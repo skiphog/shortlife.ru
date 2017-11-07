@@ -24,4 +24,8 @@ class EndController extends Controller
         return view('quest.finish');
     }
 
+    public function store()
+    {
+
+    }
 }

@@ -11,3 +11,6 @@ Route::get('/finish', 'EndController@finish')
 
 Route::post('/post', 'QuestController@post')
     ->name('post');
+
+Route::post('/login', 'EndController@store')
+    ->name('store');
