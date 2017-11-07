@@ -29,4 +29,14 @@ class Member extends Model
     ];
 
     public $timestamps = false;
+
+    public function isFinished()
+    {
+        return null !== $this->finished_at;
+    }
+
+    public function isLogin()
+    {
+        return null !== $this->login;
+    }
 }

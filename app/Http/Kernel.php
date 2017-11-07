@@ -58,6 +58,9 @@ class Kernel extends HttpKernel
         'guest'      => \App\Http\Middleware\RedirectIfAuthenticated::class,
         'throttle'   => \Illuminate\Routing\Middleware\ThrottleRequests::class,
         'token'      => \App\Http\Middleware\SetMemberCookie::class,
+        'quest.no' => \App\Http\Middleware\RedirectNoQuest::class,
+        'quest.finish' => \App\Http\Middleware\RedirectNoFinish::class,
+        'quest.login' => \App\Http\Middleware\RedirectNoLogin::class
         //'replace'    => \App\Http\Middleware\ReplaceSymbols::class,
     ];
 }
