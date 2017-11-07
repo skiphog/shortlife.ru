@@ -1,22 +1,13 @@
 <?php
 
 Route::get('/', 'QuestController@index')
-    ->name('/')
-    ->middleware(['token', 'quest.no']);
+    ->name('/');
 
 Route::post('/quest', 'QuestController@post')
     ->name('quest');
 
-///////
+Route::get('/finish', 'EndController@finish')
+    ->name('finish');
 
-Route::get('/finish', function () {
-    return view('quest.finish');
-})
-    ->name('finish')
-    ->middleware(['token', 'quest.finish']);
-
-Route::get('/login', function () {
-    return view('quest.login');
-})
-    ->name('login')
-    ->middleware(['token', 'quest.login']);
+Route::get('/login', 'EndController@login')
+    ->name('login');
