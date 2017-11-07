@@ -17,7 +17,7 @@ class RedirectNoQuest
      */
     public function handle($request, Closure $next)
     {
-        $member = Member::where('token', $request->cookie('token'))->firstOrFail();
+        $member = app()->make(Member::class);
 
         if ($member->isLogin()) {
             return redirect()->route('finish');

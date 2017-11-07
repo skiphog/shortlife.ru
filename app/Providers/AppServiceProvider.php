@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\Member;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -28,5 +29,9 @@ class AppServiceProvider extends ServiceProvider
                 $this->app->register($provider);
             }
         }
+
+        $this->app->singleton(Member::class, function ($app) {
+            return Member::where('token', request()->cookie('token'))->firstOrFail();
+        });
     }
 }

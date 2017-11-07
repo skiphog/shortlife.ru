@@ -7,7 +7,6 @@ use App\Member;
 use App\Attempt;
 use App\Question;
 use Carbon\Carbon;
-use Illuminate\Http\Request;
 use App\Http\Requests\QuestionRequest;
 
 class QuestController extends Controller
@@ -21,14 +20,12 @@ class QuestController extends Controller
     /**
      * Толстый и уродливый контроллер
      *
-     * @param Request $request
+     * @param Member $member
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function index(Request $request)
+    public function index(Member $member)
     {
-        $member = Member::where('token', $request->cookie('token'))->firstOrFail();
-
         $answers = Answer::where('member_id', $member->id)
             ->get()
             ->pluck('question_id')
@@ -43,14 +40,12 @@ class QuestController extends Controller
      * Толстый и уродливый контроллер
      *
      * @param QuestionRequest $request
+     * @param Member          $member
      *
      * @return $this|\Illuminate\Http\RedirectResponse
      */
-    public function post(QuestionRequest $request)
+    public function post(QuestionRequest $request, Member $member)
     {
-        // Получаем пользователя
-        $member = Member::where('token', $request->cookie('token'))->firstOrFail();
-
         $request->request->set('member_id', $member->id);
 
         //Записываем ответ в лог

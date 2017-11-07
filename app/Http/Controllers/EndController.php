@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
+use App\Member;
+use App\Http\Requests\LoginRequest;
 
 class EndController extends Controller
 {
@@ -24,8 +24,17 @@ class EndController extends Controller
         return view('quest.finish');
     }
 
-    public function store()
+    /**
+     * @param LoginRequest $request
+     * @param Member       $member
+     *
+     * @return mixed
+     */
+    public function store(LoginRequest $request, Member $member)
     {
+        $member->login = $request->input('login');
+        $member->save();
 
+        return redirect()->route('finish')->with('flash', 'Ваш логин записан');
     }
 }

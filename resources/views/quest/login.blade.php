@@ -10,7 +10,7 @@
         <div class="form-group">
             <div class="row">
                 <div class="col-md-6 col-md-offset-3">
-                    <input type="text" name="login" placeholder="Введите логин" class="form-control" {{ old('login') }}>
+                    <input type="text" name="login" placeholder="Введите логин" maxlength="100" class="form-control" {{ old('login') }}>
                 </div>
             </div>
         </div>

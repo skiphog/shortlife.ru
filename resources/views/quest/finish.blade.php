@@ -9,3 +9,5 @@
     </div>
 
 @endsection
+
+@include('messages.flash')
