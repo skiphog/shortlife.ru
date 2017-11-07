@@ -11,7 +11,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property int            $member_id
  * @property int            $question_id
  * @property string         $post
- * @property boolean        $answer
+ * @property bool           $answer
  * @property \Carbon\Carbon $created_at
  *
  * @mixin \Eloquent

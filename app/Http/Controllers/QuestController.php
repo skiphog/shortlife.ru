@@ -11,29 +11,17 @@ use App\Http\Requests\QuestionRequest;
 
 class QuestController extends Controller
 {
-    /**
-     * @var Member
-     */
-    protected $member;
-
-    public function __construct(Request $request)
+    public function index(Request $request)
     {
-        //$this->member = Member::where('token', $request->cookie('token'))->first();
-    }
+        $member = Member::where('token', $request->cookie('token'))->firstOrFail();
 
-    public function index()
-    {
-        //dd($this->member);
-
-        $attempts = Attempt::where(['member_id' => $this->member->id, 'answer' => true])
+        $attempts = Attempt::where(['member_id' => $member->id, 'answer' => true])
             ->get()
             ->pluck('question_id')
             ->toArray();
 
-
         $quest = Question::whereNotIn('id', $attempts ?: [0])->orderBy('id')->firstOrFail();
 
-        //dd($question);
 
         return view('quest.index', compact('quest'));
     }

@@ -16,7 +16,9 @@ class CreateMembersTable extends Migration
         Schema::create('members', function (Blueprint $table) {
             $table->increments('id');
             $table->char('token', 60)->unique();
+            $table->string('login', 100)->nullable();
             $table->timestamp('created_at')->useCurrent();
+            $table->timestamp('finished_at')->nullable();
         });
     }
 
