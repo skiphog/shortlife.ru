@@ -22,6 +22,8 @@
             </div>
         </div>
 
+        {{ csrf_field() }}
+
         <div class="form-group">
             <button type="submit" class="btn btn-fill btn-danger">Ответить</button>
         </div>

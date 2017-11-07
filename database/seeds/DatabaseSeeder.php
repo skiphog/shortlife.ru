@@ -1,7 +1,8 @@
 <?php
 
-use App\Attempt;
+use App\Answer;
 use App\Member;
+use App\Attempt;
 use App\Question;
 use Illuminate\Database\Seeder;
 
@@ -18,6 +19,7 @@ class DatabaseSeeder extends Seeder
         Question::truncate();
         Member::truncate();
         Attempt::truncate();
+        Answer::truncate();
 
         DB::table('questions')->insert([
             [

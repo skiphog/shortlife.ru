@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Answer;
 use App\Member;
-use App\Attempt;
 use App\Question;
 use Illuminate\Http\Request;
 use App\Services\AttemptService;
@@ -21,15 +21,14 @@ class QuestController extends Controller
     {
         $member = Member::where('token', $request->cookie('token'))->firstOrFail();
 
-        $attempts = Attempt::where(['member_id' => $member->id, 'answer' => true])
+        $answers = Answer::where('member_id', $member->id)
             ->get()
             ->pluck('question_id')
             ->toArray();
 
+        dd($answers);
 
-
-        $quest = Question::whereNotIn('id', $attempts ?: [0])->orderBy('id')->firstOrFail();
-
+        $quest = Question::whereNotIn('id', $answers ?: [0])->orderBy('id')->firstOrFail();
 
         return view('quest.quest', compact('quest'));
     }
@@ -44,13 +43,17 @@ class QuestController extends Controller
          * 5. todo: Все передалть НАХ!!!
          */
 
-        $service->saveAttempt($request, $this->member->id);
+
+        $member = Member::where('token', $request->cookie('token'))->firstOrFail();
+        $service->saveAttempt($request, $member->id);
+
 
         $question = Question::find($request->input('question_id'));
 
-        //todo: привезти к дному знаменателю
+        // Если уже есть верный ответ -> редирект на гланую
+
         if ($question->answer !== replaceSymbols($request->input('post'))) {
-            return response()->json(['error' => 'Неверный ответ', 'code' => 422], 422);
+            return redirect()->route('/');
         }
 
 

@@ -15,6 +15,8 @@
             </div>
         </div>
 
+        {{ csrf_field() }}
+
         <div class="form-group">
             <button type="submit" class="btn btn-fill btn-danger">Ввести</button>
         </div>

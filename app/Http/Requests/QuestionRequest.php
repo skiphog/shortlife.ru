@@ -2,7 +2,6 @@
 
 namespace App\Http\Requests;
 
-use App\Member;
 use Illuminate\Foundation\Http\FormRequest;
 
 class QuestionRequest extends FormRequest
@@ -22,11 +21,21 @@ class QuestionRequest extends FormRequest
      *
      * @return array
      */
-    public function rules()
+    public function rules(): array
     {
         return [
             'question_id' => 'required|integer|exists:questions,id',
-            'post'     => 'required'
+            'post'        => 'required'
+        ];
+    }
+
+    public function messages(): array
+    {
+        return [
+            'question_id.required' => 'Не существует такого вопроса',
+            'question_id.integer'  => 'Не существует такого вопроса',
+            'question_id.exist'    => 'Не существует такого вопроса',
+            'post.required'        => 'Ответ не может быть пустым',
         ];
     }
 }
