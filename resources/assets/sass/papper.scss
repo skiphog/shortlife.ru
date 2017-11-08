@@ -3589,7 +3589,8 @@ textarea.form-control {
 }
 
 .header {
-  background: #fffcf5 url(/img/sex-all.png) repeat-x center;
+  /*background: #fffcf5 url(/img/sex-all.png) repeat-x center;*/
+  background: #fffcf5;
   background-size: cover;
   min-height: 570px;
   .motto {
@@ -3608,4 +3609,7 @@ textarea.form-control {
 
 .landing-section {
   padding: 100px 0;
+}
+blockquote{
+  border:none;
 }
