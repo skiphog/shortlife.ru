@@ -5,7 +5,8 @@
     <form class="motto" id="quest" action="{{ route('store') }}" method="post">
         <h3>Поздравляем !!!</h3>
 
-        <p>Вы победили</p>
+        <p>Вы прошои испытание</p>
+        <p>Укажите ваш логин на сайте, для получения приза :)</p>
 
         <div class="form-group">
             <div class="row">

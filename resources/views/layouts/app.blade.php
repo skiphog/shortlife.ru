@@ -6,7 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <meta name="description" content="Свинг-квест">
     <link rel="shortcut icon" href="/img/favicon.png">
-    <link href="/css/app.css" rel="stylesheet">
+    <link href="/css/style.css" rel="stylesheet">
     @yield('css')
     <title>Свинг-квест</title>
 </head>
@@ -72,7 +72,7 @@
     </div>
 </footer>
 
-<script src="/js/app.js"></script>
+<script src="/js/script.js"></script>
 @stack('scripts')
 </body>
 </html>
