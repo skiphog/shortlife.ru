@@ -60,7 +60,7 @@ class QuestController extends Controller
         $question = Question::find($request->input('question_id'));
 
         // Если ответ неверный, то редирект с ошибкой
-        if ($question->answer !== replaceSymbols($request->input('post'))) {
+        if (replaceSymbols($question->answer) !== replaceSymbols($request->input('post'))) {
             return redirect()->route('/')
                 ->withInput()
                 ->withErrors(['Неправильный ответ']);

@@ -16,6 +16,6 @@
         "laravel-mix": "^1.6.1"
     },
     "dependencies": {
-        "sweetalert2": "^6.11.4"
+        "sweetalert2": "^6.11.5"
     }
 }

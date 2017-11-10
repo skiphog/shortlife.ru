@@ -13,7 +13,7 @@ class DatabaseSeeder extends Seeder
      *
      * @return void
      */
-    public function run()
+    public function run(): void
     {
         DB::statement('SET FOREIGN_KEY_CHECKS = 0');
         Question::truncate();
@@ -21,27 +21,16 @@ class DatabaseSeeder extends Seeder
         Attempt::truncate();
         Answer::truncate();
 
-        DB::table('questions')->insert([
-            [
-                'title'   => 'Вопрос №1: Вид свинга',
-                'content' => '<p>Без обмена партнерами &mdash; Мягкий свинг</p><p>Совместный (классический) &mdash; Открытый свинг</p><p>В разных комнатах &mdash; Закрытый свинг</p><p>Обмен на длительное время &mdash; ...</p>',
-                'answer'  => 'хардсвинг'
-            ],
-            [
-                'title'   => 'Вопрос №2: Абра-кадабра',
-                'content' => '<p>текст 2</p>',
-                'answer'  => 'свингзнакомстванасвингкиске10летобъединяемсвингеров'
-            ],
-            [
-                'title'   => 'Вопрос №3: Возбудитель',
-                'content' => '<p>текст 3</p>',
-                'answer'  => 'макатука'
-            ],
-            [
-                'title'   => 'Вопрос №4: цифры',
-                'content' => '<p>текст 4</p>',
-                'answer'  => 'великорецкое'
-            ],
-        ]);
+        $data = \DB::connection('sqlite')
+            ->table('questions')
+            ->select(['title', 'content', 'answer'])
+            ->orderBy('sort')
+            ->get()
+            ->map(function ($value) {
+                return (array)$value;
+            })
+            ->toArray();
+
+        DB::table('questions')->insert($data);
     }
 }

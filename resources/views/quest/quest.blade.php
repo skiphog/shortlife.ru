@@ -13,20 +13,6 @@
 
         {!! $quest->content !!}
 
-        <div class="text-center">
-            <blockquote>
-                <p>Люблю измену, но не изменников.</p>
-                <small>Сказал Великий человек</small>
-            </blockquote>
-
-            <blockquote>
-                <p>Фелрё кргнспфхег рг Фелрё-нлфнз. 10 озх сдэзжлрвзп фелрёзусе!</p>
-                <small>Так бы он сказал, если бы хотел, что бы поняли только те, кто в теме ...</small>
-            </blockquote>
-
-            <p>Что это значит?</p>
-        </div>
-
         <input type="hidden" name="question_id" value="{{ $quest->id }}">
         <div class="form-group">
             <div class="row">
