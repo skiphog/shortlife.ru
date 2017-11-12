@@ -13,21 +13,9 @@
 
         {!! $quest->content !!}
 
-        <input type="hidden" name="question_id" value="{{ $quest->id }}">
-        <div class="form-group">
-            <div class="row">
-                <div class="col-md-6 col-md-offset-3">
-                    <input type="text" name="post" placeholder="Введите ответ"
-                            class="form-control" value="{{ old('post') }}" required>
-                </div>
-            </div>
-        </div>
-
-        {{ csrf_field() }}
-
-        <div class="form-group">
-            <button type="submit" class="btn btn-fill btn-primary">Ответить</button>
-        </div>
+        <p>
+            Игра закончилась. Идет подведение итогов :)
+        </p>
 
     </form>
 
