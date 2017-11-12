@@ -9,13 +9,7 @@
 
     <form class="motto" id="quest" action="{{ route('post') }}" method="post">
 
-        <h3>{{ $quest->title }}</h3>
-
-        {!! $quest->content !!}
-
-        <p>
-            Игра закончилась. Идет подведение итогов :)
-        </p>
+        <h3>Игра закончилась. Идет подведение итогов :)</h3>
 
     </form>
 
